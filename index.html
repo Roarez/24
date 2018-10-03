@@ -1,0 +1,57 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>24</title>
+	<link href="style/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<h1 class="title">24</h1>
+	<div class="container">
+		<div class="diff-container">
+			<div class="btn" id="easyBtn">Easy</div>
+			<div class="btn" id="normalBtn">Normal</div>
+			<div class="btn" id="hardBtn">Hard</div>
+			<div class="reset-card" id="reset">Reset</div>
+		</div>
+		<div class="game-container">
+			<div class="diff-dots">
+				<div class="dot" id="dot1"></div>
+				<div class="dot" id="dot2"></div>
+				<div class="dot" id="dot3"></div>
+			</div>
+			<div class="circle-container">
+				<div class="num-cont n1-c">
+					<a class="number-text" id="n1"></a>
+				</div>
+				<div class="num-cont n2-c">
+					<a class="number-text" id="n2"></a>
+				</div>
+				<div class="num-cont n3-c">
+					<a class="number-text" id="n3"></a>
+				</div>
+				<div class="num-cont n4-c">
+					<a class="number-text" id="n4"></a>
+				</div>
+				<div class="square-c"></div>
+			</div>
+		</div>
+		<div class="operators-container">
+			<div class="operator" id="sum">+</div>
+			<div class="operator" id="subtract">-</div>
+			<div class="operator" id="multiply">x</div>
+			<div class="operator" id="divide">/</div>
+		</div>
+		<p class="how-to-play">
+			<strong>How to play:</strong>
+			Click numbers and operators to do a calculation.
+			When you click 2 numbers and an operator, a new number in place of the used numbers.<br>
+			<strong>Number --> Operator --> Number = New Number!</strong><br>
+			You need to do 3 calculations to reach the desired result: <strong>24</strong>.<br>
+			There are 192 diffirent cards (48 easy, 96 normal and 48 hard). Click one of the difficulty buttons above to randomly choose a card from that respective pool. Have fun!
+		</p>
+	</div>
+
+	<script src="js/cards.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>

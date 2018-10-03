@@ -1,0 +1,194 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #dcd9dc;
+  color: #776e65;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px; 
+}
+
+body {
+	margin: 10px 0; 
+}
+
+h1.title {
+	font-size: 80px;
+	font-weight: bold;
+	margin: 0;
+	display: block;
+	text-align: center;
+	color: #7D001B;
+}
+
+.container {
+  	width: 700px;
+	margin: 0 auto;
+}
+
+.reset-card {
+	display: inline-block;
+	width: 70px;
+	margin: 0;
+	z-index: 2;
+	color: #f9f6f2;
+	text-align: center;
+	line-height: 32px;
+	background: #8f7a66;
+	border-radius: 3px;
+	cursor: pointer;
+	float: right;
+	display: block;
+}
+
+.diff-dots {
+	display: block;
+	width: 100px;
+	height: 10px;
+}
+
+.dot {
+	display: inline-block;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;	
+}
+
+.dotEasy {
+	background: #FFFFFF;
+	border: 2px solid #FFFFFF;
+}
+
+.dotNormal {
+	background: #7D001B;
+	border: 2px solid #7D001B;
+}
+
+.dotHard {
+	background: #FAC500;
+	border: 2px solid #FAC500;
+}
+
+.hideDot {
+	background: #0053B8;
+	border: 2px solid #0053B8;
+}
+
+.diff-container {
+	display: block;
+	width: 515px;
+	height: 26px;
+	position: relative;
+	cursor: default;
+}
+
+.btn {
+	display: inline-block;
+	width: 70px;
+	margin: 0;
+	z-index: 2;
+	color: #f9f6f2;
+	text-align: center;
+	line-height: 32px;
+	background: #8f7a66;
+	border-radius: 3px;
+	cursor: pointer;
+	margin-right: 10px;
+	float: left;
+	display: block;
+}
+
+.game-container {
+	margin-top: 15px;
+	position: relative;
+	padding: 15px;
+	cursor: default;
+	background: #0053B8;
+	border-radius: 6px;
+	width: 485px;
+	height: 485px;
+}
+
+.circle-container {
+	margin-left: 15px;
+	margin-top: 5px;
+	border-radius: 50%;
+	width: 450px;
+    height: 450px;
+    background: #FAC500;
+    border: 3px solid #FAC500;
+}
+
+.square-c {
+	margin-left: 170px;
+	margin-top: 170px;
+	width: 100px;
+    height: 100px;
+    background: #FFFFFF;
+    border: 3px solid #FA0036;
+}
+
+.number-text {
+	color: #000000;
+	font-size: 120px;
+	font-weight: bold;
+	text-align: center;
+	z-index: 2;
+}
+
+.win {
+	color: green;
+}
+
+.lose {
+	color: red;
+}
+
+.num-cont{
+	width: 201px;
+	text-align: center;
+	cursor: pointer;
+	position: absolute;
+	z-index: 2;
+}
+
+.n1-c {	
+	transform: translate(125px,0px);
+}
+.n2-c {
+	transform: translate(280px,155px) rotate(90deg);
+}
+.n3-c {
+	transform: translate(125px,310px) rotate(180deg);
+}
+.n4-c {
+	transform: translate(-30px,155px) rotate(270deg);
+}
+
+.hidden {
+	display: none;
+}
+
+.operators-container {
+	display: block;
+	width: 100px;
+	transform: translate(525px,-515px);
+}
+
+.operator {
+	margin: 0;
+	z-index: 2;
+	color: #f9f6f2;
+	text-align: center;
+	font-size: 64px;
+	font-weight: bold;
+	line-height: 100px;
+	background: #7D001B;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-bottom: 10px;
+	display: block;
+}
+
+.how-to-play {
+	transform: translate(0,-415px);
+}
