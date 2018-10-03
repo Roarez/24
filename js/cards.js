@@ -1,5 +1,5 @@
 // had to be a js file instead of a json because of a bug in chrome
-var cards = {
+const cards = {
 	"hard":[
 		{
 			"n1":8,
