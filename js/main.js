@@ -1,6 +1,56 @@
 // cards variable saved in cards.js
 // more info on why there
 
+var buttons = [
+	{
+		"bId": "easyBtn",
+		"handler": switchDiffEasy
+	},
+	{
+		"bId": "normalBtn",
+		"handler": switchDiffNormal
+	},
+	{
+		"bId": "hardBtn",
+		"handler": switchDiffHard
+	},
+	{
+		"bId": "n1",
+		"handler": clickedN1
+	},
+	{
+		"bId": "n2",
+		"handler": clickedN2
+	},
+	{
+		"bId": "n3",
+		"handler": clickedN3
+	},
+	{
+		"bId": "n4",
+		"handler": clickedN4
+	},
+	{
+		"bId": "sum",
+		"handler": clickedSum
+	},
+	{
+		"bId": "subtract",
+		"handler": clickedSubtract
+	},
+	{
+		"bId": "multiply",
+		"handler": clickedMultiply
+	},
+	{
+		"bId": "divide",
+		"handler": clickedDivide
+	},
+	{
+		"bId": "reset",
+		"handler": resetCard
+	}
+];
 var circle = document.querySelector(".circle-container");
 var saved_number, saved_operator, new_numbers;
 var current_card = {
@@ -10,6 +60,10 @@ var current_card = {
 	n4:"?"
 };
 displayCard(current_card);
+
+buttons.forEach(function(button) {
+	document.getElementById(button.bId).addEventListener("click", button.handler);
+});
 
 /*
 give feedback on selected numbers and operators (change color?)
@@ -21,7 +75,7 @@ make a win and lose screen with options (buttons)
 
 function chooseCard(difficulty) {
 	var diff = difficulty;
-	var card;
+	var card, pick;
 	if(diff == "easy") {
 		pick = Math.floor(Math.random() * cards.easy.length);
 		card = cards.easy[pick];
@@ -47,28 +101,37 @@ function chooseCard(difficulty) {
 }
 
 function displayCard(card) {
-	var crd = card;
-	circle.querySelector("#n1").textContent = crd.n1;
-	circle.querySelector("#n2").textContent = crd.n2;
-	circle.querySelector("#n3").textContent = crd.n3;
-	circle.querySelector("#n4").textContent = crd.n4;
-	current_card = crd;
-	resetCard();	
+	current_card = card;
+	var card_handler = [
+		{
+			"cId": "n1",
+			"cText": current_card.n1
+		},
+		{
+			"cId": "n2",
+			"cText": current_card.n2
+		},
+		{
+			"cId": "n3",
+			"cText": current_card.n3
+		},
+		{
+			"cId": "n4",
+			"cText": current_card.n4
+		}
+	];
+	card_handler.forEach(function(handler) {
+		document.getElementById(handler.cId).text = handler.cText;
+		document.getElementById(handler.cId).setAttribute("class", "number-text");
+	});
+	saved_number = undefined;
+	saved_operator = undefined;
+	new_numbers = []; //only an array in case i add in an undo btn	
 }
 
 //reset number values and visibility
 function resetCard() {
-	circle.querySelector("#n1").textContent = current_card.n1;
-	circle.querySelector("#n1").setAttribute("class", "number-text");
-	circle.querySelector("#n2").textContent = current_card.n2;
-	circle.querySelector("#n2").setAttribute("class", "number-text");
-	circle.querySelector("#n3").textContent = current_card.n3;
-	circle.querySelector("#n3").setAttribute("class", "number-text");
-	circle.querySelector("#n4").textContent = current_card.n4;
-	circle.querySelector("#n4").setAttribute("class", "number-text");
-	saved_number = undefined;
-	saved_operator = undefined;
-	new_numbers = []; //only an array in case i add in an undo btn
+	displayCard(current_card);
 }
 
 function switchDiffEasy() {
@@ -82,20 +145,6 @@ function switchDiffNormal() {
 function switchDiffHard() {
 	displayCard(chooseCard("hard"));
 }
-
-//Adding buttons
-document.getElementById("easyBtn").addEventListener("click", switchDiffEasy);
-document.getElementById("normalBtn").addEventListener("click", switchDiffNormal);
-document.getElementById("hardBtn").addEventListener("click", switchDiffHard);
-document.getElementById("n1").addEventListener("click", clickedN1);
-document.getElementById("n2").addEventListener("click", clickedN2);
-document.getElementById("n3").addEventListener("click", clickedN3);
-document.getElementById("n4").addEventListener("click", clickedN4);
-document.getElementById("sum").addEventListener("click", clickedSum);
-document.getElementById("subtract").addEventListener("click", clickedSubtract);
-document.getElementById("multiply").addEventListener("click", clickedMultiply);
-document.getElementById("divide").addEventListener("click", clickedDivide);
-document.getElementById("reset").addEventListener("click", resetCard);
 
 function hideElement(element) {
 	var classes = [element.getAttribute("class")];
