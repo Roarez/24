@@ -1,7 +1,7 @@
 // cards variable saved in cards.js
 // more info on why there
 
-var buttons = [
+const buttons = [
 	{
 		"bId": "easyBtn",
 		"handler": switchDiffEasy
@@ -51,9 +51,8 @@ var buttons = [
 		"handler": resetCard
 	}
 ];
-var circle = document.querySelector(".circle-container");
-var saved_number, saved_operator, new_numbers;
-var current_card = {
+let saved_number, saved_operator, new_numbers;
+let current_card = {
 	n1:"?",
 	n2:"?",
 	n3:"?",
@@ -74,8 +73,9 @@ make a win and lose screen with options (buttons)
 */
 
 function chooseCard(difficulty) {
-	var diff = difficulty;
-	var classes;
+	const diff = difficulty;
+	let classes;
+	
 	if(diff == "easy") {
 		classes = ["dotEasy", "hideDot", "hideDot"];
 	}
@@ -86,18 +86,19 @@ function chooseCard(difficulty) {
 		classes = ["dotHard", "dotHard", "dotHard"];
 	}
 	
-	for (i = 0, i < classes.length, i++) {
+	for(let i = 0; i < classes.length; i++) {
 		document.getElementById("dot" + (i + 1)).setAttribute("class", "dot " + classes[i]);
-	}	
-	var pick = Math.floor(Math.random() * cards[diff].length);
-	var card = cards[diff][pick];
+	}
+	
+	const pick = Math.floor(Math.random() * cards[diff].length);
+	const card = cards[diff][pick];
 
 	return card;
 }
 
 function displayCard(card) {
 	current_card = card;
-	var card_handler = [
+	const card_handler = [
 		{
 			"cId": "n1",
 			"cText": current_card.n1
@@ -142,64 +143,64 @@ function switchDiffHard() {
 }
 
 function hideElement(element) {
-	var classes = [element.getAttribute("class")];
+	const classes = [element.getAttribute("class")];
 	classes.push("hidden");
 	element.setAttribute("class", classes.join(" "));
 }
 
 //what happens when you click a number
 function clickedN1() {
-	var temp = document.getElementById("n1");
+	const temp = document.getElementById("n1");
 	if(!saved_operator){
 		saved_number = temp;
 	}
 	if(saved_operator && saved_number != temp){
-		var saved = parseInt(saved_number.text);
-		var temp_num = parseInt(temp.text);
+		const saved = parseInt(saved_number.text);
+		const temp_num = parseInt(temp.text);
 		new_numbers.push(calculate(saved, temp_num, saved_operator));
-		var res = new_numbers[new_numbers.length-1];
+		const res = new_numbers[new_numbers.length-1];
 		updateView(saved_number, temp, res);
 		winCheck(temp);
 	}
 }
 function clickedN2() {
-	var temp = document.getElementById("n2");
+	const temp = document.getElementById("n2");
 	if(!saved_operator){
 		saved_number = temp;
 	}
 	if(saved_operator && saved_number != temp){
-		var saved = parseInt(saved_number.text);
-		var temp_num = parseInt(temp.text);
+		const saved = parseInt(saved_number.text);
+		const temp_num = parseInt(temp.text);
 		new_numbers.push(calculate(saved, temp_num, saved_operator));
-		var res = new_numbers[new_numbers.length-1];
+		const res = new_numbers[new_numbers.length-1];
 		updateView(saved_number, temp, res);
 		winCheck(temp);
 	}
 }
 function clickedN3() {
-	var temp = document.getElementById("n3");
+	const temp = document.getElementById("n3");
 	if(!saved_operator){
 		saved_number = temp;
 	}
 	if(saved_operator && saved_number != temp){
-		var saved = parseInt(saved_number.text);
-		var temp_num = parseInt(temp.text);
+		const saved = parseInt(saved_number.text);
+		const temp_num = parseInt(temp.text);
 		new_numbers.push(calculate(saved, temp_num, saved_operator));
-		var res = new_numbers[new_numbers.length-1];
+		const res = new_numbers[new_numbers.length-1];
 		updateView(saved_number, temp, res);
 		winCheck(temp);
 	}
 }
 function clickedN4() {
-	var temp = document.getElementById("n4");
+	const temp = document.getElementById("n4");
 	if(!saved_operator){
 		saved_number = temp;
 	}
 	if(saved_operator && saved_number != temp){
-		var saved = parseInt(saved_number.text);
-		var temp_num = parseInt(temp.text);
+		const saved = parseInt(saved_number.text);
+		const temp_num = parseInt(temp.text);
 		new_numbers.push(calculate(saved, temp_num, saved_operator));
-		var res = new_numbers[new_numbers.length-1];
+		const res = new_numbers[new_numbers.length-1];
 		updateView(saved_number, temp, res);
 		winCheck(temp);		
 	}
@@ -207,22 +208,22 @@ function clickedN4() {
 
 //what happens when you click an operator
 function clickedSum() {
-	var temp = "+";
+	const temp = "+";
 	if(saved_operator != "+" && saved_number)
 		saved_operator = temp;
 }
 function clickedSubtract() {
-	var temp = "-";
+	const temp = "-";
 	if(saved_operator != "-" && saved_number)
 		saved_operator = temp;
 }
 function clickedMultiply() {
-	var temp = "x";
+	const temp = "x";
 	if(saved_operator != "x" && saved_number)
 		saved_operator = temp;
 }
 function clickedDivide() {
-	var temp = "/";
+	const temp = "/";
 	if(saved_operator != "/" && saved_number)
 		saved_operator = temp;
 }
@@ -239,7 +240,7 @@ function updateView(first, second, result){
 
 function winCheck(elem) {
 	if(new_numbers.length == 3) {
-		var classes = [elem.getAttribute("class")];
+		const classes = [elem.getAttribute("class")];
 		if(new_numbers[2] == 24) {		
 			classes.push("win");
 			elem.setAttribute("class", classes.join(" "));
@@ -254,8 +255,8 @@ function winCheck(elem) {
 }
 
 function calculate(num1, num2, operator) {
-	var n1 = num1, n2 = num2, op = operator;
-	var total;
+	const n1 = num1, n2 = num2, op = operator;
+	let total;
 
 	if(op == "+")
 		total = n1 + n2;
