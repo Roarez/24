@@ -75,28 +75,23 @@ make a win and lose screen with options (buttons)
 
 function chooseCard(difficulty) {
 	var diff = difficulty;
-	var card, pick;
+	var classes;
 	if(diff == "easy") {
-		pick = Math.floor(Math.random() * cards.easy.length);
-		card = cards.easy[pick];
-		document.getElementById("dot1").setAttribute("class", "dot dotEasy");
-		document.getElementById("dot2").setAttribute("class", "dot hideDot");
-		document.getElementById("dot3").setAttribute("class", "dot hideDot");
+		classes = ["dotEasy", "hideDot", "hideDot"];
 	}
 	if(diff == "normal") {
-		pick = Math.floor(Math.random() * cards.normal.length);
-		card = cards.normal[pick];
-		document.getElementById("dot1").setAttribute("class", "dot dotNormal");
-		document.getElementById("dot2").setAttribute("class", "dot dotNormal");
-		document.getElementById("dot3").setAttribute("class", "dot hideDot");
+		classes = ["dotNormal", "dotNormal", "hideDot"];
 	}
 	if(diff == "hard") {
-		pick = Math.floor(Math.random() * cards.hard.length);
-		card = cards.hard[pick];
-		document.getElementById("dot1").setAttribute("class", "dot dotHard");
-		document.getElementById("dot2").setAttribute("class", "dot dotHard");
-		document.getElementById("dot3").setAttribute("class", "dot dotHard");
+		classes = ["dotHard", "dotHard", "dotHard"];
 	}
+	
+	for (i = 0, i < classes.length, i++) {
+		document.getElementById("dot" + (i + 1)).setAttribute("class", "dot " + classes[i]);
+	}	
+	var pick = Math.floor(Math.random() * cards[diff].length);
+	var card = cards[diff][pick];
+
 	return card;
 }
 
