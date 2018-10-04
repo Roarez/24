@@ -65,8 +65,6 @@ buttons.forEach(function(button) {
 });
 
 /*
-give feedback on selected numbers and operators (change color?)
-if selected again, feedback on deselection
 what happens when you win?
 for now you get a visual feedback (green = win, red = lose)
 make a win and lose screen with options (buttons)
@@ -120,6 +118,9 @@ function displayCard(card) {
 		document.getElementById(handler.cId).text = handler.cText;
 		document.getElementById(handler.cId).setAttribute("class", "number-text");
 	});
+	if(saved_operator) {
+		saved_operator.setAttribute("class", "operator");
+	}
 	saved_number = undefined;
 	saved_operator = undefined;
 	new_numbers = []; //only an array in case i add in an undo btn	
@@ -151,87 +152,90 @@ function hideElement(element) {
 //what happens when you click a number
 function clickedN1() {
 	const temp = document.getElementById("n1");
-	if(!saved_operator){
-		saved_number = temp;
-	}
-	if(saved_operator && saved_number != temp){
-		const saved = parseInt(saved_number.text);
-		const temp_num = parseInt(temp.text);
-		new_numbers.push(calculate(saved, temp_num, saved_operator));
-		const res = new_numbers[new_numbers.length-1];
-		updateView(saved_number, temp, res);
-		winCheck(temp);
-	}
+	handleNumberSelection(temp);
 }
 function clickedN2() {
 	const temp = document.getElementById("n2");
-	if(!saved_operator){
-		saved_number = temp;
-	}
-	if(saved_operator && saved_number != temp){
-		const saved = parseInt(saved_number.text);
-		const temp_num = parseInt(temp.text);
-		new_numbers.push(calculate(saved, temp_num, saved_operator));
-		const res = new_numbers[new_numbers.length-1];
-		updateView(saved_number, temp, res);
-		winCheck(temp);
-	}
+	handleNumberSelection(temp);
 }
 function clickedN3() {
 	const temp = document.getElementById("n3");
-	if(!saved_operator){
-		saved_number = temp;
-	}
-	if(saved_operator && saved_number != temp){
-		const saved = parseInt(saved_number.text);
-		const temp_num = parseInt(temp.text);
-		new_numbers.push(calculate(saved, temp_num, saved_operator));
-		const res = new_numbers[new_numbers.length-1];
-		updateView(saved_number, temp, res);
-		winCheck(temp);
-	}
+	handleNumberSelection(temp);
 }
 function clickedN4() {
 	const temp = document.getElementById("n4");
-	if(!saved_operator){
-		saved_number = temp;
-	}
-	if(saved_operator && saved_number != temp){
-		const saved = parseInt(saved_number.text);
-		const temp_num = parseInt(temp.text);
-		new_numbers.push(calculate(saved, temp_num, saved_operator));
-		const res = new_numbers[new_numbers.length-1];
-		updateView(saved_number, temp, res);
-		winCheck(temp);		
-	}
+	handleNumberSelection(temp);
 }
 
 //what happens when you click an operator
 function clickedSum() {
-	const temp = "+";
-	if(saved_operator != "+" && saved_number)
-		saved_operator = temp;
+	const temp = document.getElementById("sum");
+	handleOperatorSelection(temp);
 }
 function clickedSubtract() {
-	const temp = "-";
-	if(saved_operator != "-" && saved_number)
-		saved_operator = temp;
+	const temp = document.getElementById("subtract");
+	handleOperatorSelection(temp);
 }
 function clickedMultiply() {
-	const temp = "x";
-	if(saved_operator != "x" && saved_number)
-		saved_operator = temp;
+	const temp = document.getElementById("multiply");
+	handleOperatorSelection(temp);
 }
 function clickedDivide() {
-	const temp = "/";
-	if(saved_operator != "/" && saved_number)
-		saved_operator = temp;
+	const temp = document.getElementById("divide");
+	handleOperatorSelection(temp);
+}
+
+function handleNumberSelection(elem) {
+	const temp = elem;
+	if(!saved_operator){
+		if(!saved_number) {
+			saved_number = temp;
+			temp.setAttribute("class", "number-text selected-num");
+		}else{
+			if(saved_number == temp){
+				saved_number = undefined;
+				temp.setAttribute("class", "number-text");
+			}else{
+				saved_number.setAttribute("class", "number-text");
+				temp.setAttribute("class", "number-text selected-num");
+				saved_number = temp;
+			}
+		}
+	}
+	if(saved_operator && saved_number != temp){
+		const saved = parseInt(saved_number.text);
+		const temp_num = parseInt(temp.text);
+		new_numbers.push(calculate(saved, temp_num, saved_operator.textContent));
+		const res = new_numbers[new_numbers.length-1];
+		updateView(saved_number, temp, res);
+		winCheck(temp);	
+	}
+}
+
+function handleOperatorSelection(elem) {
+	const temp = elem;
+	if(saved_number) {
+		if(!saved_operator) {
+			saved_operator = temp;
+			temp.setAttribute("class", "operator selected-op");
+		}else{
+			if(saved_operator == temp) {
+				saved_operator = undefined;
+				temp.setAttribute("class", "operator");
+			}else{
+				saved_operator.setAttribute("class","operator");
+				temp.setAttribute("class", "operator selected-op");
+				saved_operator = temp;
+			}
+		}
+	}
 }
 
 function updateView(first, second, result){
 	hideElement(first);
 	second.text = result;
 
+	saved_operator.setAttribute("class", "operator");
 	saved_number = undefined;
 	saved_operator = undefined;
 	//just a dev helper
