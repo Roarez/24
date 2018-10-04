@@ -189,6 +189,14 @@ h1.title {
 	display: block;
 }
 
+.selected-op {
+	color: #090602;
+}
+
+.selected-num {
+	color: #FFFFFF;
+}
+
 .how-to-play {
 	transform: translate(0,-415px);
 }
