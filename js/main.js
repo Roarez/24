@@ -49,9 +49,17 @@ const buttons = [
 	{
 		"bId": "reset",
 		"handler": resetCard
+	},
+	{
+		"bId": "retry",
+		"handler": resetCard
+	},
+	{
+		"bId": "next",
+		"handler": nextCard
 	}
 ];
-let saved_number, saved_operator, new_numbers;
+let saved_number, saved_operator, new_numbers, current_diff;
 let current_card = {
 	n1:"?",
 	n2:"?",
@@ -65,9 +73,8 @@ buttons.forEach(function(button) {
 });
 
 /*
-what happens when you win?
-for now you get a visual feedback (green = win, red = lose)
-make a win and lose screen with options (buttons)
+idea: make mode where cards are saved,
+so you can complete all cards
 */
 
 function chooseCard(difficulty) {
@@ -90,6 +97,7 @@ function chooseCard(difficulty) {
 	
 	const pick = Math.floor(Math.random() * cards[diff].length);
 	const card = cards[diff][pick];
+	current_diff = diff;
 
 	return card;
 }
@@ -121,9 +129,14 @@ function displayCard(card) {
 	if(saved_operator) {
 		saved_operator.setAttribute("class", "operator");
 	}
+	document.getElementById("overlay").setAttribute("class", "game-message hidden");
 	saved_number = undefined;
 	saved_operator = undefined;
 	new_numbers = []; //only an array in case i add in an undo btn	
+}
+
+function nextCard() {
+	displayCard(chooseCard(current_diff));
 }
 
 //reset number values and visibility
@@ -203,8 +216,8 @@ function handleNumberSelection(elem) {
 		}
 	}
 	if(saved_operator && saved_number != temp){
-		const saved = parseInt(saved_number.text);
-		const temp_num = parseInt(temp.text);
+		const saved = Number(saved_number.text);
+		const temp_num = Number(temp.text);
 		new_numbers.push(calculate(saved, temp_num, saved_operator.textContent));
 		const res = new_numbers[new_numbers.length-1];
 		updateView(saved_number, temp, res);
@@ -238,8 +251,6 @@ function updateView(first, second, result){
 	saved_operator.setAttribute("class", "operator");
 	saved_number = undefined;
 	saved_operator = undefined;
-	//just a dev helper
-	//console.log(new_numbers);	
 }
 
 function winCheck(elem) {
@@ -248,13 +259,16 @@ function winCheck(elem) {
 		if(new_numbers[2] == 24) {		
 			classes.push("win");
 			elem.setAttribute("class", classes.join(" "));
-			//show win screen with options: "next card"
+			document.getElementById("message").textContent = "Solved!";
+			document.getElementById("message").setAttribute("class", "message-text win");
 			//maybe store the card or remove it from the pool
 		}else {
 			classes.push("lose");
 			elem.setAttribute("class", classes.join(" "));
-			//show lose screen with options: "retry"
-		}	
+			document.getElementById("message").textContent = "Try again!";
+			document.getElementById("message").setAttribute("class", "message-text lose");
+		}
+		document.getElementById("overlay").setAttribute("class", "game-message");
 	}
 }
 
@@ -269,7 +283,7 @@ function calculate(num1, num2, operator) {
 	if(op == "x")
 		total = n1 * n2;
 	if(op == "/")
-		total = n1 / n2;
+		total = Number((n1 / n2).toFixed(3));
 	
 	return total;
 }
