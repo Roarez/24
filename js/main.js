@@ -59,7 +59,7 @@ const buttons = [
 		"handler": nextCard
 	}
 ];
-let saved_number, saved_operator, new_numbers, current_diff;
+let saved_number, saved_operator, new_numbers, current_diff, card_index;
 let current_card = {
 	n1:"?",
 	n2:"?",
@@ -73,8 +73,8 @@ buttons.forEach(function(button) {
 });
 
 /*
-idea: make mode where cards are saved,
-so you can complete all cards
+idea: card is removed from the pool when solved,
+ to avoid picking it again
 */
 
 function chooseCard(difficulty) {
@@ -95,9 +95,18 @@ function chooseCard(difficulty) {
 		document.getElementById("dot" + (i + 1)).setAttribute("class", "dot " + classes[i]);
 	}
 	
+	current_diff = diff;
+
+	if(cards[diff].length == 0) {
+		//properly send a message to the player
+		//indicating all cards heve been solved for that difficulty
+		return {n1:"D", n2:"O", n3:"N", n4:"E"};
+	}
+
 	const pick = Math.floor(Math.random() * cards[diff].length);
 	const card = cards[diff][pick];
-	current_diff = diff;
+	
+	card_index = pick;
 
 	return card;
 }
@@ -136,6 +145,20 @@ function displayCard(card) {
 }
 
 function nextCard() {
+	if(cards[current_diff].length == 0) {
+		if(cards.easy.length > 0) {
+			switchDiffEasy();
+			return;
+		}
+		if(cards.normal.length > 0) {
+			switchDiffNormal();
+			return;
+		}
+		if(cards.hard.length > 0) {
+			switchDiffHard();
+			return;
+		}
+	}
 	displayCard(chooseCard(current_diff));
 }
 
@@ -261,7 +284,7 @@ function winCheck(elem) {
 			elem.setAttribute("class", classes.join(" "));
 			document.getElementById("message").textContent = "Solved!";
 			document.getElementById("message").setAttribute("class", "message-text win");
-			//maybe store the card or remove it from the pool
+			cards[current_diff].splice(card_index, 1); //remove solved card from pool
 		}else {
 			classes.push("lose");
 			elem.setAttribute("class", classes.join(" "));
