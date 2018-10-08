@@ -3,7 +3,7 @@ html, body {
   padding: 0;
   background: #dcd9dc;
   color: #776e65;
-  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: ""Clear Sans", "Helvetica Neue", Arial, sans-serif";
   font-size: 18px; 
 }
 
@@ -40,10 +40,18 @@ h1.title {
 	display: block;
 }
 
+.reset-card:active {
+	box-shadow: 3px 3px #090602;
+}
+
 .diff-dots {
 	display: block;
 	width: 100px;
 	height: 10px;
+
+	@media (max-width: 800px) {
+
+	}
 }
 
 .dot {
@@ -97,6 +105,10 @@ h1.title {
 	display: block;
 }
 
+.btn:active {
+	box-shadow: 3px 3px #090602;
+}
+
 .game-message {
 	margin-top: 15px;
 	position: absolute;
@@ -138,6 +150,10 @@ h1.title {
 	opacity: 1;
 }
 
+.message-btn:active {
+	box-shadow: 3px 3px #7D001B;
+}
+
 .message-btn-container {
 	margin: 0;
 	transform: translate(165px,120px);
@@ -176,10 +192,15 @@ h1.title {
 .number-text {
 	color: #000000;
 	font-size: 120px;
-	font-weight: bold;
+	font-weight: bolder;
 	text-align: center;
 	z-index: 2;
 	text-decoration: underline;
+	font-family: "Domine";
+}
+
+.number-text:active {
+	text-shadow: 2px 2px #FFFFFF;
 }
 
 .win {
@@ -236,12 +257,19 @@ h1.title {
 	display: block;
 }
 
+.operator:active {
+	text-shadow: 3px 3px #090602;
+	box-shadow: 3px 3px #090602;
+}
+
 .selected-op {
-	color: #090602;
+	color: #FAC500;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .selected-num {
-	color: #FFFFFF;
+	color: #BD001B;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .how-to-play {
